@@ -1,0 +1,386 @@
+
+<!-- CSS -->
+
+<style>
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.winterMode{
+    width: 25%;
+    height: 280px;
+    float: left;
+    background-color: #8585e5;
+    border-radius: 140px 140px 140px 140px;
+}
+
+.winterMode h3{
+    font-weight: bold;
+    font-size: 28px;
+    font-family: "Verdana";
+    text-align: center;
+    position: relative;
+    top: 75%;
+}
+
+.winterMode h2{
+    font-weight: bold;
+    font-size: 28px;
+    font-family: "Verdana";
+    text-align: center;
+    position: relative;
+    top: 25%;
+}
+
+.summerMode{
+    width: 25%;
+    height: 280px;
+    float: left;
+    background-color: #dd6666;
+    background-size: 210px auto;
+}
+
+.summerMode h3{
+    font-weight: bold;
+    font-size: 28px;
+    font-family: "Verdana";
+    text-align: center;
+    position: relative;
+    top: 75%;
+}
+
+.summerMode h2{
+    font-weight: bold;
+    font-size: 28px;
+    font-family: "Verdana";
+    color: #804d00;
+    text-align: center;
+    position: relative;
+    top: 25%;
+}
+
+}
+.page{
+    position: relative;
+}
+
+.row{
+    max-width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+#row1{
+    max-height: 33.3%;
+}
+
+.tbox{
+    width: 25%;
+    max-height: auto;
+    float: left;
+}
+
+#row2{
+    max-height: 33.3%;
+    clear: left;
+}
+
+.mbox{
+    width: 33.3%;
+    max-height: auto;
+    float: left;
+}
+
+
+#row3{
+    max-height: 33.3%;
+    clear: both;
+
+</style>
+
+
+<!-- Get point values -->
+
+<ma-get-point-value point-xid="hallsFanMode" point="hallsFanMode"></ma-get-point-value>
+<ma-point-values point-xid="hallsFanInletAirTemp" point="inletAir"></ma-point-values>
+<ma-get-point-value point-xid="hallsFanInletAirTemp" point="inletAirNow"></ma-get-point-value>
+<ma-point-values point-xid="hallsFanOutletAirTemp" point="outletAir"></ma-point-values>
+<ma-get-point-value point-xid="hallsFanOutletAirTemp" point="outletAirNow"></ma-get-point-value>
+<ma-point-values point-xid="hallsFanSetPoint" point="setPoint"></ma-point-values>
+<ma-get-point-value point-xid="hallsFanSetPoint" point="setPointNow"></ma-get-point-value>
+<ma-point-values point-xid="DP_HallsFanBypassDamperPos" point="bypassPos"></ma-point-values>
+<ma-get-point-value point-xid="DP_HallsFanBypassDamperPos" point="bypassNow"></ma-get-point-value>
+<ma-point-values point-xid="DP_HallsFanCoilsDamperPos" point="coilsPos"></ma-point-values>
+<ma-get-point-value point-xid="DP_HallsFanCoilsDamperPos" point="coilsNow"></ma-get-point-value>
+<ma-point-values point-xid="hallsFanCoilWaterOut" point="waterOut"></ma-point-values>
+<ma-get-point-value point-xid="hallsFanCoilWaterOut" point="waterOutNow"></ma-get-point-value>
+
+<!-- Manipulate point values to 12 previous hours and update -->
+
+<ma-now update-interval="1 minutes" output="to"></ma-now>
+<ma-calc input="to | moment:'subtract':12:'hours'" output="from"></ma-calc>
+
+<ma-point-values point="inletAir" values="inletAirValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<ma-point-values point="outletAir" values="outletAirValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<ma-point-values point="setPoint" values="setPointValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<ma-point-values point="bypassPos" values="bypassPosValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<ma-point-values point="coilsPos" values="coilsPosValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+
+
+
+<!-- HTML -->
+
+<div class="page">
+    <h1 align="center">22nd Hallways Air Handler</h1>
+    
+    <div class="row">
+        <div id="row1">
+            <div ng-class="{'winterMode': hallsFanMode.renderedValue == 'Winter Mode', 'summerMode': hallsFanMode.renderedValue == 'Summer Mode'}">
+                <h3>Thermostat Mode</h3>
+                <h2><ma-point-value point="hallsFanMode"></ma-point-value></h2>
+            </div>
+             <div class="tbox">
+                <ma-gauge-chart 
+    		        point="inletAirNow" 
+    		        style="width: auto; height:260px"
+    		        options="{
+    		            axes:[{
+    		                topText:'Inlet Air Temperature', 
+    		                topTextYOffset:160, 
+    		                topTextFontSize:28,
+    		                bottomTextYOffset:5,
+    		                bottomTextFontSize:36,
+    		                fontSize:32,
+    		                tickLength:25,
+    		                tickThickness:6,
+    		                minorTickInterval:2,
+    		                minorTickLengthL:20,
+    		                startValue:0, 
+    		                endValue:140, 
+    		                bands:[{
+    		                    startValue:0, 
+    		                    endValue:140, 
+    		                    color:'green',
+    		                    innerRadius:105,
+		                    }]
+    		            }]
+    	            }"
+    		    ></ma-gauge-chart>
+            </div>
+             <div class="tbox">
+                <ma-gauge-chart 
+    		        point="setPointNow" 
+    		        style="width: 100%; height:260px"
+    		        options="{
+    		            axes:[{
+    		                topText:'Set Point', 
+    		                topTextYOffset:160, 
+    		                topTextFontSize:28,
+    		                bottomTextYOffset:5,
+    		                bottomTextFontSize:36,
+    		                fontSize:32,
+    		                tickLength:25,
+    		                tickThickness:6,
+    		                minorTickInterval:2,
+    		                minorTickLengthL:20,
+    		                startValue:0, 
+    		                endValue:140, 
+    		                bands:[{
+    		                    startValue:0, 
+    		                    endValue:140, 
+    		                    color:'red',
+    		                    innerRadius:105,
+		                    }]
+    		            }]
+    	            }"
+    		    ></ma-gauge-chart>
+            </div>
+             <div class="tbox">
+                <ma-gauge-chart 
+            		  point="outletAirNow" 
+            		  style="width:auto; height:260px"
+            		  options="{
+            		    axes:[{
+            		        topText:'Outlet Air Temperature', 
+            		        topTextYOffset:160, 
+            		        topTextFontSize:27,
+            		        bottomTextYOffset:5,
+            		        bottomTextFontSize:36,
+            		        fontSize:32, 
+            		        tickLength:25,
+            		        tickThickness:6,
+            		        minorTickInterval:2,
+            		        minorTickLengthL:20,
+            		        startValue:0, 
+            		        endValue:140, 
+            		            bands:[{
+            		                startValue:0,
+            		                endValue:140, 
+            		                color:'cyan',
+            		                innerRadius:105,
+        		                }]
+            		    }]
+            	       }"
+                ></ma-gauge-chart>
+            </div>
+        </div>
+        
+        <div id="row2">
+            <div class="mbox">
+                <ma-gauge-chart 
+    		        point="waterOutNow" 
+    		        style="width:100%; height:260px"
+    		        options="{
+    		            axes:[{
+    		                topText:'Water Outlet Temperature', 
+    		                topTextYOffset:160, 
+        		            topTextFontSize:28,
+        		            bottomTextYOffset:5,
+        		            bottomTextFontSize:36,
+        		            fontSize:32, 
+        		            tickLength:25,
+    		                tickThickness:6,
+    		                minorTickInterval:2,
+    		                minorTickLengthL:20,
+    		                startValue:0, 
+    		                endValue:200, 
+    		                bands:[{
+    		                    startValue:0, 
+    		                    endValue:200, 
+    		                    color:'black',
+    		                    innerRadius:105,
+		                    }]
+    		            }]
+    	            }"
+    		    ></ma-gauge-chart>
+            </div>
+            <div class="mbox">
+                <ma-gauge-chart 
+    		        point="bypassNow" 
+    		        style="width:100%; height:260px"
+    		        options="{
+    		            axes:[{
+    		                topText:'Bypass Damper Position', 
+    		                topTextYOffset:160, 
+        		            topTextFontSize:28,
+        		            bottomTextYOffset:5,
+        		            bottomTextFontSize:36,
+        		            fontSize:32,
+        		            tickLength:25,
+    		                tickThickness:6,
+    		                minorTickInterval:2,
+    		                minorTickLengthL:20,
+    		                startValue:0, 
+    		                endValue:100, 
+    		                bands:[{
+    		                    startValue:0, 
+    		                    endValue:100, 
+    		                    color:'pink',
+    		                    innerRadius:105,
+		                    }]
+    		            }]
+    	            }"
+    		    ></ma-gauge-chart>
+            </div>
+            <div class="mbox">
+                <ma-gauge-chart 
+    		        point="coilsNow" 
+    		        style="width:100%; height:260px"
+    		        options="{
+    		            axes:[{
+    		                topText:'Coils Damper Position', 
+    		                topTextYOffset:160, 
+        		            topTextFontSize:28,
+        		            bottomTextYOffset:5,
+        		            bottomTextFontSize:36,
+        		            fontSize:32,
+        		            tickLength:25,
+    		                tickThickness:6,
+    		                minorTickInterval:2,
+    		                minorTickLengthL:20,
+    		                startValue:0, 
+    		                endValue:100, 
+    		                bands:[{
+    		                    startValue:0, 
+    		                    endValue:100, 
+    		                    color:'deepPink',
+    		                    innerRadius:105,
+		                    }]
+    		            }]
+    	            }"
+    		    ></ma-gauge-chart>
+            </div>
+        </div>
+        
+        <div id="row3">
+            <ma-serial-chart 
+                style="height: 480px; width: 100%" 
+                series-1-values="inletAirValues" 
+                series-1-point="inletAir" 
+                series-1-color="green" 
+                series-1-axis="left"
+                series-1-type="line"
+                series-2-values="outletAirValues" 
+                series-2-point="outletAir" 
+                series-2-color="cyan"
+                series-2-axis="left"
+                series-2-type="line"
+                series-3-values="setPointValues" 
+                series-3-point="setPoint" 
+                series-3-color="red"
+                series-3-axis="left"
+                series-3-type="line"
+                series-4-values="bypassPosValues"
+                series-4-point="bypassPos"
+                series-4-color="pink"
+                series-4-axis="right"
+                series-4-type="line"
+                series-5-values="coilsPosValues"
+                series-5-point="coilsPos"
+                series-5-color="deepPink"
+                series-5-axis="right"
+                series-5-type="line"
+                legend="true" 
+                baloon="false"
+                options="{
+                    valueAxes:[
+                        {
+                            axisColor:'black', 
+                            color:'black', 
+                            title: 'Temperature °F', 
+                            titleColor: 'black', 
+                            minimum:-40, 
+                            maximum:140,
+                            fontSize:26,
+                            titleFontSize:26,
+                        }, 
+                        {
+                            axisColor:'black', 
+                            color:'black', 
+                            title: 'Damper Position %', 
+                            titleColor: 'Black', 
+                            minimum:0, 
+                            maximum:100,
+                            fontSize:26,
+                            titleFontSize:26,
+                            }
+                    ]
+                }"
+            >
+            </ma-serial-chart>
+        </div>
+    </div>
+</div>
+

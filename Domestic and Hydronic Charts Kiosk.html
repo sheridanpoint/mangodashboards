@@ -1,0 +1,166 @@
+<style>
+    
+md-card {
+    padding:0;
+    margin:0;
+}
+    
+</style>
+
+<!-- Get point values -->
+<ma-point-values point-xid="leaderAvgDhwTankTemp" point="AvgTank"></ma-point-values>
+<ma-point-values point-xid="DP_member1FiringRateDHW" point="m1FireDHW"></ma-point-values>
+<ma-point-values point-xid="DP_member3FiringRateDHW" point="m3FireDHW"></ma-point-values>
+<ma-point-values point-xid="leaderSystemSupplyTemperature" point="lSuppTemp"></ma-point-values>
+<ma-point-values point-xid="leaderSystemCascadeSetpoint" point="lCascTemp"></ma-point-values>
+<ma-point-values point-xid="leaderOutdoorTemperature" point="lOutTemp"></ma-point-values>
+<ma-point-values point-xid="leaderCascadeCurrentPower" point="lCascCurPwr"></ma-point-values>
+<ma-point-values point-xid="leaderCascadeTotalPower" point="lCascTotPwr"></ma-point-values>
+
+<!-- Manipulate point values to 12 previous hours and update -->
+<ma-now update-interval="1 minutes" output="to"></ma-now>
+<ma-calc input="to | moment:'subtract':12:'hours'" output="from"></ma-calc>
+
+<ma-point-values point="AvgTank" values="AvgTankValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<ma-point-values point="m1FireDHW" values="m1FireDHWValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<ma-point-values point="m3FireDHW" values="m3FireDHWValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<ma-point-values point="lSuppTemp" values="lSuppTempValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<ma-point-values point="lCascTemp" values="lCascTempValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<ma-point-values point="lOutTemp" values="lOutTempValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<ma-point-values point="lCascCurPwr" values="lCascCurPwrValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<ma-point-values point="lCascTotPwr" values="lCascTotPwrValues" from="from" to="to" rollup="AVERAGE" rollup-interval="1 minutes">
+</ma-point-values>
+
+<!-- Lay Out Charts -->
+
+<div layout="column" layout-fill flex>
+    
+    <!-- Top Chart DHW -->
+    <md-card flex>
+        <md-card-content>
+                <h3 align="center">DHW Tank Temperature and DHW Boilers Firing Rate (last 12 Hours)</h3>
+                <ma-serial-chart 
+                    style="height: 450px; width: 100%" 
+                    series-1-values="AvgTankValues" 
+                    series-1-point="AvgTank" 
+                    series-1-color="sienna" 
+                    series-1-axis="left"
+                    series-1-type="line"
+                    series-2-values="m1FireDHWValues" 
+                    series-2-point="m1FireDHW" 
+                    series-2-color="red"
+                    series-2-axis="right"
+                    series-2-type="line"
+                    series-3-values="m3FireDHWValues" 
+                    series-3-point="m3FireDHW" 
+                    series-3-color="blue"
+                    series-3-axis="right"
+                    series-3-type="line"
+                    legend="true" 
+                    baloon="false"
+                    options="{
+                        valueAxes:[
+                            {
+                                axisColor:'black', 
+                                color:'black', 
+                                title: 'Temperature °F', 
+                                titleColor: 'black',
+                                fontSize:26,
+                                titleFontSize:26,
+                                minimum:0, 
+                                maximum:160
+                            }, 
+                            {
+                                axisColor:'black', 
+                                color:'black', 
+                                title: 'Firing Rate %', 
+                                titleColor: 'black',
+                                fontSize:26,
+                                titleFontSize:26, 
+                                minimum:0, 
+                                maximum:100
+                            }
+                        ]
+                    }"
+                >
+                </ma-serial-chart>
+
+        </md-card-content>
+    </md-card>
+    
+    <!-- Bottom Chart Hydronic -->    
+    <md-card flex>
+        <md-card-content>
+                <h3 align="center">Hydronic Temperatures and Cascade Firing Rates (last 12 hours)</h3>
+                <ma-serial-chart
+                    style="height: 450px; width: 100%"
+                    series-1-values="lSuppTempValues"
+                    series-1-point="lSuppTemp"
+                    series-1-axis="left"
+                    seires-1-color="yellow"
+                    series-1-type="line"
+                    series-2-values="lCascTempValues"
+                    series-2-point='lCascTemp'
+                    series-2-axis="left"
+                    series-2-color="Red"
+                    series-2-type="line"
+                    series-3-values="lOutTempValues"
+                    series-3-point="lOutTemp"
+                    series-3-axis="left"
+                    series-3-color="green"
+                    series-3-type="line"
+                    series-4-values="lCascCurPwrValues"
+                    series-4-point="lCascCurPwr"
+                    series-4-axis="right"
+                    series-4-color="pink"
+                    series-4-type="line"
+                    series-5-title="Cascade Available Power"
+                    series-5-values="lCascTotPwrValues"
+                    series-5-point="lCascTotPwr"
+                    series-5-axis="right"
+                    series-5-color="purple"
+                    series-5-type="line"
+                    legend="true"
+                    options="{
+                        valueAxes:[
+                            {
+                                axisColor:'black', 
+                                color:'black', 
+                                title: 'Temperature °F', 
+                                titleColor: 'black',
+                                fontSize:26,
+                                titleFontSize:26,
+                                minimum:-40, 
+                                maximum:200,
+                            }, 
+                            {
+                                axisColor:'black', 
+                                color:'black', 
+                                title: 'Cascade Power %', 
+                                titleColor: 'Black',
+                                fontSize:26,
+                                titleFontSize:26,
+                                minimum:0, 
+                                maximum:600
+                            }   
+                        ]
+                    }"
+                >
+                </ma-serial-chart>
+        </md-card-content>
+    </md-card>
+</div>

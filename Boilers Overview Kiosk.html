@@ -1,0 +1,674 @@
+<!-- Style Sheet -->
+<style>
+
+md-card {
+    padding:0;
+    margin:0;
+    border-style: solid;
+    border-width: 1px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: black;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.status {
+    font-size: 125%;
+}
+
+.nocomm {
+    color: white;
+    opacity: 0.15;
+}
+
+.mainstatus {
+    font-size: 135%;
+    font-weight: bold;
+    text-align: center;
+    border-style: solid;
+    border-color: #cccccc;
+}
+
+.freezing {
+    background-color: #00FFFF;
+    border-radius: 66px;
+}
+
+.alarm {
+    color: white;
+    background-color: #990000;
+}
+
+.default {
+    color: black;
+    background-color:white;
+}
+
+.firing {
+    border-radius: 92px 92px 0px 0px;
+    background-color: #b3ffb3;
+}
+
+
+</style>
+
+
+<!-- Get Point Values -->
+
+    <!-- Boiler Leader -->
+    <ma-get-point-value point-xid="leaderFiringRate" point="LFiring"></ma-get-point-value>
+    <ma-get-point-value point-xid="leaderInletTemp" point="LInlet"></ma-get-point-value>
+    <ma-get-point-value point-xid="leaderOutletTemp" point="LOutlet"></ma-get-point-value>
+    <ma-get-point-value point-xid="leaderBoilerStatusCode" point="LStatus"></ma-get-point-value>
+    <ma-get-point-value point-xid="leaderBlockingCode" point="LBlocking"></ma-get-point-value>
+    <ma-get-point-value point-xid="leaderLockoutCode" point="LLocking"></ma-get-point-value>
+    <ma-get-point-value point-xid="leaderAlarmStatus" point="LAlarm"></ma-get-point-value>
+    <ma-get-point-value point-xid="DP_BoilerLeaderNoCommunication" point="LComm"></ma-get-point-value>
+
+    <!-- Boiler Member 1 -->
+    <ma-get-point-value point-xid="member1FiringRate" point="m1Firing"></ma-get-point-value>
+    <ma-get-point-value point-xid="member1InletTemp" point="m1Inlet"></ma-get-point-value>
+    <ma-get-point-value point-xid="member1OutletTemp" point="m1Outlet"></ma-get-point-value>
+    <ma-get-point-value point-xid="member1BoilerStatusCode" point="m1Status"></ma-get-point-value>
+    <ma-get-point-value point-xid="member1BlockingCode" point="m1Blocking"></ma-get-point-value>
+    <ma-get-point-value point-xid="member1LockoutCode" point="m1Locking"></ma-get-point-value>
+    <ma-get-point-value point-xid="member1AlarmStatus" point="m1Alarm"></ma-get-point-value>
+    <ma-get-point-value point-xid="DP_BoilerMember1NoCommunication" point="m1Comm"></ma-get-point-value>
+    
+    <!-- Boiler Member 2 -->
+    <ma-get-point-value point-xid="member2FiringRate" point="m2Firing"></ma-get-point-value>
+	<ma-get-point-value point-xid="member2InletTemp" point="m2Inlet"></ma-get-point-value>
+	<ma-get-point-value point-xid="member2OutletTemp" point="m2Outlet"></ma-get-point-value>
+    <ma-get-point-value point-xid="member2BoilerStatusCode" point="m2Status"></ma-get-point-value>
+    <ma-get-point-value point-xid="member2BlockingCode" point="m2Blocking"></ma-get-point-value>
+    <ma-get-point-value point-xid="member2LockoutCode" point="m2Locking"></ma-get-point-value>
+    <ma-get-point-value point-xid="member2AlarmStatus" point="m2Alarm"></ma-get-point-value>
+    <ma-get-point-value point-xid="DP_BoilerMember2NoCommunication" point="m2Comm"></ma-get-point-value>
+
+	<!-- Boiler Member 3 -->
+	<ma-get-point-value point-xid="member3FiringRate" point="m3Firing"></ma-get-point-value>
+	<ma-get-point-value point-xid="member3InletTemp" point="m3Inlet"></ma-get-point-value>
+	<ma-get-point-value point-xid="member3OutletTemp" point="m3Outlet"></ma-get-point-value>
+    <ma-get-point-value point-xid="member3BoilerStatusCode" point="m3Status"></ma-get-point-value>
+    <ma-get-point-value point-xid="member3BlockingCode" point="m3Blocking"></ma-get-point-value>
+    <ma-get-point-value point-xid="member3LockoutCode" point="m3Locking"></ma-get-point-value>
+    <ma-get-point-value point-xid="member3AlarmStatus" point="m3Alarm"></ma-get-point-value>
+    <ma-get-point-value point-xid="DP_BoilerMember3NoCommunication" point="m3Comm"></ma-get-point-value>
+	
+	<!-- Boiler Member 4 -->
+	<ma-get-point-value point-xid="member4FiringRate" point="m4Firing"></ma-get-point-value>
+	<ma-get-point-value point-xid="member4InletTemp" point="m4Inlet"></ma-get-point-value>
+	<ma-get-point-value point-xid="member4OutletTemp" point="m4Outlet"></ma-get-point-value>
+    <ma-get-point-value point-xid="member4BoilerStatusCode" point="m4Status"></ma-get-point-value>
+    <ma-get-point-value point-xid="member4BlockingCode" point="m4Blocking"></ma-get-point-value>
+    <ma-get-point-value point-xid="member4LockoutCode" point="m4Locking"></ma-get-point-value>
+    <ma-get-point-value point-xid="member4AlarmStatus" point="m4Alarm"></ma-get-point-value>
+    <ma-get-point-value point-xid="DP_BoilerMember4NoCommunication" point="m4Comm"></ma-get-point-value>
+	
+	<!-- Boiler Member 5 -->
+	<ma-get-point-value point-xid="member5FiringRate" point="m5Firing"></ma-get-point-value>
+	<ma-get-point-value point-xid="member5InletTemp" point="m5Inlet"></ma-get-point-value>
+	<ma-get-point-value point-xid="member5OutletTemp" point="m5Outlet"></ma-get-point-value>
+    <ma-get-point-value point-xid="member5BoilerStatusCode" point="m5Status"></ma-get-point-value>
+    <ma-get-point-value point-xid="member5BlockingCode" point="m5Blocking"></ma-get-point-value>
+    <ma-get-point-value point-xid="member5LockoutCode" point="m5Locking"></ma-get-point-value>
+    <ma-get-point-value point-xid="member5AlarmStatus" point="m5Alarm"></ma-get-point-value>
+    <ma-get-point-value point-xid="DP_BoilerMember5NoCommunication" point="m5Comm"></ma-get-point-value>
+	
+	<!-- Other Values -->
+	<ma-get-point-value point-xid="leaderAvgDhwTankTemp" point="AvgDhw"></ma-get-point-value>
+	<ma-get-point-value point-xid="leaderSystemCascadeSetpoint" point="leaderSetPoint"></ma-get-point-value>
+	<ma-get-point-value point-xid="leaderSystemSupplyTemperature" point="leaderSuppTemp"></ma-get-point-value>
+	<ma-get-point-value point-xid="leaderOutdoorTemperature" point="leaderOutdoorTemp"></ma-get-point-value>
+
+	
+	
+<!-- Lay Out the cards -->
+<div flex layout="column" layout-fill>
+        <div layout="row" flex>
+            <md-card flex="33" class="default">
+                <md-card-content>
+                    <h4 align="center">Boiler Leader</h4>
+                    <div layout="column" flex>
+                        <div flex layout="row" input type="text" ng-class="{'alarm': LAlarm.renderedValue == 'Alarm On', 'firing': LFiring.value > 0, 'nocomm': LComm.renderedValue !== 'Communication OK'}">
+		                    <ma-gauge-chart 
+		                        point="LFiring" 
+		                        style="width:100%; height:190px"
+		                        options="{
+                                    axes:[{
+                                        topText:'Firing Rate', 
+                                        topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22,  
+                                        startValue:0, 
+                                        endValue:100, 
+                                        bands:[
+                                            {startValue:0, endValue:35, color:'green'}, 
+                                            {startValue:35, endValue:70, color:'yellow'}, 
+                                            {startValue:70, endValue:100, color:'red'}
+                                        ]
+                                    }]
+                                }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="LInlet" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Inlet Temp', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+		                                startValue:0, 
+		                                endValue:200, 
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#6699ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="LOutlet" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Outlet Temp', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22,
+		                                startValue:0, 
+		                                endValue:200, 
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#9933ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+                	    </div>
+                	        <label class="mainstatus" input type="text" ng-class="{'nocomm': LComm.renderedValue !== 'Communication OK'}"><b>Status:</b><ma-point-value point="LStatus"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': LBlocking.renderedValue !== 'No Blocking', 'nocomm': LComm.renderedValue !== 'Communication OK'}"><b>Blocking Status:</b><ma-point-value point="LBlocking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': LLocking.renderedValue !== 'No Lockout Code Present', 'nocomm': LComm.renderedValue !== 'Communication OK'}"><b>Lockout Status:</b><ma-point-value point="LLocking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': LAlarm.renderedValue !== 'No Alarm', 'nocomm': LComm.renderedValue !== 'Communication OK'}"><b>Alarm Status:</b><ma-point-value point="LAlarm"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': LComm.renderedValue !== 'Communication OK'}"><b>Communication Status:</b><ma-point-value point="LComm"></ma-point-value></label>
+                    </div>    	    
+                </md-card-content>
+            </md-card>
+
+            <md-card flex="33">
+                <md-card-content>
+                    <h4 align="center">Boiler Member 1 / DHW Backup / Cascade Backup</h4>
+                    <div layout="column" flex>
+                        <div flex layout="row" input type="text" ng-class="{'alarm': m1Alarm.renderedValue == 'Alarm On', 'firing': m1Firing.value > 0, 'nocomm': m1Comm.renderedValue !== 'Communication OK'}">
+		                    <ma-gauge-chart 
+		                        point="m1Firing" 
+		                        style="width:100%; height:190px"
+		                        options="{
+                                    axes:[{
+                                        topText:'Firing Rate', 
+                                        topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22,
+                                        startValue:0, 
+                                        endValue:100, 
+                                        bands:[
+                                            {startValue:0, endValue:35, color:'green'}, 
+                                            {startValue:35, endValue:70, color:'yellow'}, 
+                                            {startValue:70, endValue:100, color:'red'}
+                                        ]
+                                    }]
+                                }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="m1Inlet" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Inlet Temp', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+		                                startValue:0, 
+		                                endValue:200, 
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#6699ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="m1Outlet" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Outlet Temp', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22,
+		                                startValue:0, 
+		                                endValue:200, 
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#9933ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+                	    </div>
+                	        <label class="mainstatus" input type="text" ng-class="{'nocomm': m1Comm.renderedValue !== 'Communication OK'}"><b>Status:</b><ma-point-value point="m1Status"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m1Blocking.renderedValue !== 'No Blocking', 'nocomm': m1Comm.renderedValue !== 'Communication OK'}"><b>Blocking Status:</b><ma-point-value point="m1Blocking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m1Locking.renderedValue !== 'No Lockout Code Present', 'nocomm': m1Comm.renderedValue !== 'Communication OK'}"><b>Lockout Status:</b><ma-point-value point="m1Locking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m1Alarm.renderedValue !== 'No Alarm', 'nocomm': m1Comm.renderedValue !== 'Communication OK'}"><b>Alarm Status:</b><ma-point-value point="m1Alarm"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m1Comm.renderedValue !== 'Communication OK'}"><b>Communication Status:</b><ma-point-value point="m1Comm"></ma-point-value></label>
+                	        
+                    </div>
+                </md-card-content>
+            </md-card>
+            
+            <md-card flex="33">
+                <md-card-content>
+                    <h4 align="center">Boiler Member 2</h4>
+                    <div layout="column" flex>
+                        <div flex="33" layout="row" input type="text" ng-class="{'alarm': m2Alarm.renderedValue == 'Alarm On', 'firing': m2Firing.value > 0, 'nocomm': m2Comm.renderedValue !== 'Communication OK'}">
+		                    <ma-gauge-chart 
+		                        point="m2Firing" 
+		                        style="width:100%; height:190px"
+		                        options="{
+                                    axes:[{
+                                        topText:'Firing Rate', 
+                                        topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+                                        startValue:0, 
+                                        endValue:100, 
+                                        bands:[
+                                            {startValue:0, endValue:35, color:'green'}, 
+                                            {startValue:35, endValue:70, color:'yellow'}, 
+                                            {startValue:70, endValue:100, color:'red'}
+                                        ]
+                                    }]
+                                }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="m2Inlet" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Inlet Temp',
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22,
+		                                startValue:0,
+		                                endValue:200,
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#6699ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="m2Outlet" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Outlet Temp',
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22,
+		                                startValue:0, 
+		                                endValue:200, 
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#9933ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+                	    </div>
+                	        <label class="mainstatus" input type="text" ng-class="{'nocomm': m2Comm.renderedValue !== 'Communication OK'}"><b>Status:</b><ma-point-value point="m2Status"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m2Blocking.renderedValue !== 'No Blocking', 'nocomm': m2Comm.renderedValue !== 'Communication OK'}"><b>Blocking Status:</b><ma-point-value point="m2Blocking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m2Locking.renderedValue !== 'No Lockout Code Present', 'nocomm': m2Comm.renderedValue !== 'Communication OK'}"><b>Lockout Status:</b><ma-point-value point="m2Locking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m2Alarm.renderedValue !== 'No Alarm', 'nocomm': m2Comm.renderedValue !== 'Communication OK'}"><b>Alarm Status:</b><ma-point-value point="m2Alarm"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m2Comm.renderedValue !== 'Communication OK'}"><b>Communication Status:</b><ma-point-value point="m2Comm"></ma-point-value></label>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+
+        <div layout="row" flex>
+            <md-card flex="33">
+                <md-card-content>
+                    <h4 align="center">Boiler Member 3 / DHW Backup</h4>
+                    <div layout="column" flex>
+                        <div flex="33" layout="row" input type="text" ng-class="{'alarm': m3Alarm.renderedValue == 'Alarm On', 'firing': m3Firing.value > 0, 'nocomm': m3Comm.renderedValue !== 'Communication OK'}">
+		                    <ma-gauge-chart 
+		                        point="m3Firing" 
+		                        style="width:100%; height:190px"
+		                        options="{
+                                    axes:[{
+                                        topText:'Firing Rate', 
+                                        topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+                                        startValue:0, 
+                                        endValue:100, 
+                                        bands:[
+                                            {startValue:0, endValue:35, color:'green'},
+                                            {startValue:35, endValue:70, color:'yellow'},
+                                            {startValue:70, endValue:100, color:'red'}
+                                        ]
+                                    }]
+                                }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="m3Inlet" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Inlet Temp', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22,
+		                                startValue:0, 
+		                                endValue:200, 
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#6699ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="m3Outlet" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Outlet Temp', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+		                                startValue:0, 
+		                                endValue:200, 
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#9933ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+                	    </div>
+                	        <label class="mainstatus" input type="text" ng-class="{'nocomm': m3Comm.renderedValue !== 'Communication OK'}"><b>Status:</b><ma-point-value point="m3Status"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m3Blocking.renderedValue !== 'No Blocking', 'nocomm': m3Comm.renderedValue !== 'Communication OK'}"><b>Blocking Status:</b><ma-point-value point="m3Blocking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m3Locking.renderedValue !== 'No Lockout Code Present', 'nocomm': m3Comm.renderedValue !== 'Communication OK'}"><b>Lockout Status:</b><ma-point-value point="m3Locking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m3Alarm.renderedValue !== 'No Alarm', 'nocomm': m3Comm.renderedValue !== 'Communication OK'}"><b>Alarm Status:</b><ma-point-value point="m3Alarm"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m3Comm.renderedValue !== 'Communication OK'}"><b>Communication Status:</b><ma-point-value point="m3Comm"></ma-point-value></label>
+                    </div>
+                </md-card-content>
+            </md-card>
+
+            <md-card flex="33">
+                <md-card-content>
+                    <h4 align="center">Boiler Member 4</h4>
+                    <div layout="column" flex>
+                        <div flex="33" layout="row" input type="text" ng-class="{'alarm': m4Alarm.renderedValue == 'Alarm On', 'firing': m4Firing.value > 0, 'nocomm': m4Comm.renderedValue !== 'Communication OK'}">
+		                    <ma-gauge-chart 
+		                        point="m4Firing" 
+		                        style="width:100%; height:190px"
+		                        options="{
+                                    axes:[{
+                                        topText:'Firing Rate', 
+                                        topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+                                        startValue:0, 
+                                        endValue:100, 
+                                        bands:[
+                                            {startValue:0, endValue:35, color:'green'}, 
+                                            {startValue:35, endValue:70, color:'yellow'}, 
+                                            {startValue:70, endValue:100, color:'red'}
+                                        ]
+                                    }]
+                                }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="m4Inlet" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Inlet Temp', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+		                                startValue:0, 
+		                                endValue:200, 
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#6699ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="m4Outlet"
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Outlet Temp', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22,
+		                                startValue:0, 
+		                                endValue:200, 
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#9933ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+                	    </div>
+                	        <label class="mainstatus" input type="text" ng-class="{'nocomm': m4Comm.renderedValue !== 'Communication OK'}"><b>Status:</b><ma-point-value point="m4Status"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m4Blocking.renderedValue !== 'No Blocking', 'nocomm': m4Comm.renderedValue !== 'Communication OK'}"><b>Blocking Status:</b><ma-point-value point="m4Blocking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m4Locking.renderedValue !== 'No Lockout Code Present', 'nocomm': m4Comm.renderedValue !== 'Communication OK'}"><b>Lockout Status:</b><ma-point-value point="m4Locking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m4Alarm.renderedValue !== 'No Alarm', 'nocomm': m4Comm.renderedValue !== 'Communication OK'}"><b>Alarm Status:</b><ma-point-value point="m4Alarm"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m4Comm.renderedValue !== 'Communication OK'}"><b>Communication Status:</b><ma-point-value point="m4Comm"></ma-point-value></label>
+                    </div>
+                </md-card-content>
+            </md-card>
+            
+            <md-card flex="33">
+                <md-card-content>
+                    <h4 align="center">Boiler Member 5</h4>
+                    <div layout="column" flex>
+                        <div flex="33" layout="row" input type="text" ng-class="{'alarm': m5Alarm.renderedValue == 'Alarm On', 'firing': m5Firing.value > 0, 'nocomm': m5Comm.renderedValue !== 'Communication OK'}">
+		                    <ma-gauge-chart 
+		                        point="m5Firing" 
+		                        style="width:100%; height:190px"
+		                        options="{
+                                    axes:[{
+                                        topText:'Firing Rate', 
+                                        topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+                                        startValue:0, 
+                                        endValue:100, 
+                                        bands:[
+                                            {startValue:0, endValue:35, color:'green'}, 
+                                            {startValue:35, endValue:70, color:'yellow'}, 
+                                            {startValue:70, endValue:100, color:'red'}
+                                        ]
+                                    }]
+                                }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="m5Inlet" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Inlet Temp', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+		                                startValue:0, 
+		                                endValue:200, 
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#6699ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+		                    <ma-gauge-chart 
+		                        point="m5Outlet" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Outlet Temp', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:26,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+		                                startValue:0, 
+		                                endValue:200, 
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'#9933ff'}
+	                                    ]
+		                            }]
+	                            }"
+		                    ></ma-gauge-chart>
+                	    </div>
+                	        <label class="mainstatus" input type="text" ng-class="{'nocomm': m5Comm.renderedValue !== 'Communication OK'}"><b>Status:</b><ma-point-value point="m5Status"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m5Blocking.renderedValue !== 'No Blocking', 'nocomm': m5Comm.renderedValue !== 'Communication OK'}"><b>Blocking Status:</b><ma-point-value point="m5Blocking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m5Locking.renderedValue !== 'No Lockout Code Present', 'nocomm': m5Comm.renderedValue !== 'Communication OK'}"><b>Lockout Status:</b><ma-point-value point="m5Locking"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m5Alarm.renderedValue !== 'No Alarm', 'nocomm': m5Comm.renderedValue !== 'Communication OK'}"><b>Alarm Status:</b><ma-point-value point="m5Alarm"></ma-point-value></label>
+                	        <label class="status" input type="text" ng-class="{'alarm': m5Comm.renderedValue !== 'Communication OK'}"><b>Communication Status:</b><ma-point-value point="m5Comm"></ma-point-value></label>
+                    </div>
+                </md-card-content>
+        </div>
+    <div layout="row" flex>
+            <md-card flex="25">
+                <md-card-content>
+		                    <ma-gauge-chart 
+		                        point="AvgDhw" 
+		                        start="0" 
+		                        end="180" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'DHW Avg Tank Temperature', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:24,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22,
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'sienna'}
+	                                    ]
+	                                }]
+                                }"
+		                    ></ma-gauge-chart>
+                </md-card-content>
+            </md-card>
+
+            <md-card flex="25">
+                <md-card-content>
+		                    <ma-gauge-chart 
+		                        point="leaderSetPoint" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Hydronic Setpoint Temperature', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:24,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+		                                startValue:0, 
+		                                endValue:200,
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'red'}
+	                                    ]
+	                                }]
+                                }"
+		                    ></ma-gauge-chart>
+                </md-card-content>
+            </md-card>
+            
+            <md-card flex="25">
+                <md-card-content>
+		                    <ma-gauge-chart 
+		                        point="leaderSuppTemp" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Hydronic Output Temperature', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:24,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22, 
+		                                startValue:0, 
+		                                endValue:200,
+		                                bands:[
+		                                    {startValue:0, endValue:200, color:'black'}
+	                                    ]
+	                                }]
+                                }"
+		                    ></ma-gauge-chart>
+                </md-card-content>
+            </md-card>
+            
+              <md-card flex="25">
+                <md-card-content class="default" ng-class="{'freezing': leaderOutdoorTemp.value < 35}">
+		                    <ma-gauge-chart 
+		                        point="leaderOutdoorTemp" 
+		                        style="width:100%; height:190px"
+		                        options="{
+		                            axes:[{
+		                                topText:'Outdoor Temperature', 
+		                                topTextYOffset:110, 
+                    		            topTextFontSize:24,
+                    		            bottomTextYOffset:5,
+                    		            bottomTextFontSize:26,
+                    		            fontSize:22,  
+		                                startValue:0, 
+		                                endValue:140,
+		                                bands:[
+		                                    {startValue:0, endValue:140, color:'green'}
+	                                    ]
+	                                }]
+		                        }"
+		                    ></ma-gauge-chart>
+                </md-card-content>
+            </md-card> 
+        </div>
+</div>
